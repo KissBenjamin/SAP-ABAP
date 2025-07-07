@@ -1,0 +1,43 @@
+   METHOD if_oo_adt_classrun~main.
+
+
+   DATA lt_egesz TYPE TABLE OF i.
+   DATA lv_egesz TYPE i.
+
+   DATA lv_max   TYPE i.
+   DATA lv_seed  TYPE i.
+
+    DATA: lv_median TYPE i,
+      lv_size   TYPE i,
+      lv_index  TYPE i.
+
+   DO 10 TIMES.
+     lv_seed = sy-uzeit + sy-index.
+     lv_egesz = cl_abap_random_int=>create( seed = lv_seed
+                                            min  = 1
+                                            max  = 10 )->get_next( ).
+     out->write( |{ sy-index }. veletlen generalt szam: { lv_egesz }| ).
+
+     APPEND lv_egesz TO lt_egesz.
+
+   ENDDO.
+
+
+
+SORT lt_egesz ASCENDING.
+
+lv_size = lines( lt_egesz ).
+
+IF lv_size MOD 2 = 0.
+  lv_index = lv_size / 2.
+  lv_median = ( lt_egesz[ lv_index ] + lt_egesz[ lv_index + 1 ] ) / 2.
+ELSE.
+  lv_index = ( lv_size + 1 ) / 2.
+  lv_median = lt_egesz[ lv_index ].
+ENDIF.
+
+out->write( 'Medián:' ).
+out->write( lv_median ).
+
+  ENDMETHOD.
+ENDCLASS.
