@@ -1,0 +1,26 @@
+  METHOD if_oo_adt_classrun~main.
+
+DATA: lv_szam TYPE int8 VALUE '4512854875',
+      lv_oszto TYPE int8,
+      lv_lnposzto TYPE int8,
+      lv_index TYPE int8.
+
+* Legnagyobb prím osztó keresése
+lv_index = 1.
+DO.
+  lv_oszto = lv_index + 1.
+  IF lv_oszto > lv_szam / 2.
+    EXIT.
+  ENDIF.
+  IF lv_szam MOD lv_oszto = 0.
+    lv_lnposzto = lv_oszto.
+    lv_szam = lv_szam / lv_oszto.
+    lv_index = 0.
+  ENDIF.
+  lv_index = lv_index + 1.
+ENDDO.
+
+out->write(  'Legnagyobb prím osztó:' ).
+out->write(  lv_lnposzto ).
+
+  ENDMETHOD.
