@@ -1,0 +1,59 @@
+CLASS z_atlagszamitas DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC .
+
+  PUBLIC SECTION.
+
+    INTERFACES if_oo_adt_classrun .
+  PROTECTED SECTION.
+  PRIVATE SECTION.
+ENDCLASS.
+
+
+
+CLASS z_atlagszamitas IMPLEMENTATION.
+
+CLASS z_atlagszamitas DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC .
+
+  PUBLIC SECTION.
+
+    INTERFACES if_oo_adt_classrun .
+  PROTECTED SECTION.
+  PRIVATE SECTION.
+ENDCLASS.
+
+
+
+CLASS z_atlagszamitas IMPLEMENTATION.
+
+METHOD if_oo_adt_classrun~main.
+
+  DATA: lt_egesz TYPE TABLE OF i,
+        lv_egesz TYPE i,
+        lv_seed  TYPE i,
+        lv_sum   TYPE i VALUE 0,
+        lv_atlag TYPE f.
+
+  DO 100 TIMES.
+    lv_seed = sy-uzeit + sy-index.
+    lv_egesz = cl_abap_random_int=>create(
+                 seed = lv_seed
+                 min  = 1
+                 max  = 100 )->get_next( ).
+
+    APPEND lv_egesz TO lt_egesz.
+    lv_sum = lv_sum + lv_egesz.
+
+    out->write( |{ sy-index }. véletlen generált szám: { lv_egesz }| ).
+  ENDDO.
+
+  lv_atlag = lv_sum / lines( lt_egesz ).
+
+  out->write( |A véletlen generált számok átlaga: { lv_atlag }| ).
+
+	ENDMETHOD.
+ENDCLASS.
